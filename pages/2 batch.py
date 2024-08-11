@@ -59,9 +59,9 @@ def main():
         
         # 将 DataFrame 保存为 Excel 格式
         output = io.BytesIO()
-        writer = pd.ExcelWriter(output, engine='xlsxwriter')
-        processed_df.to_excel(writer, index=False, sheet_name='Sheet1')
-        writer.save()  # 仅在未使用 with 语句时调用
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            processed_df.to_excel(writer, index=False, sheet_name='Sheet1')
+            # writer.save()  # 不再需要
 
         # 将指针移回开始位置
         output.seek(0)
@@ -73,7 +73,6 @@ def main():
             file_name="processed_results.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-
 
 if __name__ == "__main__":
     main()
