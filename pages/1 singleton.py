@@ -6,9 +6,7 @@ import requests
 from Utils import *
 import time  # for measuring time duration of API calls
 from openai import OpenAI
-from tqdm import tqdm
-tqdm.pandas()
-
+from Utils import get_finturned_model_response_openai, get_finturned_model_response_huggingface
 
 import os
 # 1080
@@ -49,8 +47,7 @@ if st.button("计算创造力得分"):
         
         client = OpenAI(api_key=OPENAI_API_KEY)
         model_name = option
-        messages = get_request_format_message_openai(prompt, response)
-        score, err = get_finturned_model_response_openai(client, messages, model_name)
+        score, err = get_finturned_model_response_openai(client, text, model_name)
 
         if err is not None:
             st.error(err)
