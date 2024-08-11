@@ -56,12 +56,19 @@ def main():
         processed_df = process_file(df)
 
         st.success("数据处理完成！")
+        # 创建下载按钮
         download_link = st.download_button(
             label="下载结果",
-            data=processed_df.to_csv(index=False),
-            file_name="processed_results.csv",
-            mime="text/csv"
+            data=processed_df.to_excel(index=False),
+            file_name="processed_results.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
+        # download_link = st.download_button(
+        #     label="下载结果",
+        #     data=processed_df.to_csv(index=False),
+        #     file_name="processed_results.csv",
+        #     mime="text/csv"
+        # )
 
 if __name__ == "__main__":
     main()
