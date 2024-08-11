@@ -9,10 +9,6 @@ from openai import OpenAI
 from Utils import get_finturned_model_response_openai, get_finturned_model_response_huggingface
 
 import os
-# 1080
-os.environ["http_proxy"] = "http://127.0.0.1:33210"
-os.environ["https_proxy"] = "http://127.0.0.1:33210"
-
 
 # _______________________________________________________________________
 # 选择物品、模型、答案
