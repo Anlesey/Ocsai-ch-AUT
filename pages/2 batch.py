@@ -3,6 +3,18 @@ import pandas as pd
 from io import BytesIO
 from Utils import *
 
+def validate_file(df):
+    required_columns = ['ID', '物品', '答案']
+    if not all(column in df.columns for column in required_columns):
+        return "文件必须包含以下三列：ID, 物品, 答案"
+    if df['ID'].duplicated().any():
+        return "ID列不能包含重复值"
+    return None
+import streamlit as st
+import pandas as pd
+from io import BytesIO
+from Utils import *
+
 @st.cache_data
 def process_file(df):
     results = []
