@@ -57,18 +57,24 @@ def main():
 
         st.success("数据处理完成！")
         # 创建下载按钮
+
+
+        # 将 DataFrame 保存为 Excel 格式
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            processed_df.to_excel(writer, index=False, sheet_name='Sheet1')
+            writer.save()
+
+        # 将指针移回开始位置
+        output.seek(0)
+
+        # 创建下载按钮
         download_link = st.download_button(
             label="下载结果",
-            data=processed_df.to_excel(index=False),
+            data=output,
             file_name="processed_results.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-        # download_link = st.download_button(
-        #     label="下载结果",
-        #     data=processed_df.to_csv(index=False),
-        #     file_name="processed_results.csv",
-        #     mime="text/csv"
-        # )
 
 if __name__ == "__main__":
     main()
