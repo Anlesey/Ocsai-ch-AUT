@@ -45,7 +45,8 @@ if st.button("计算创造力得分"):
 
     # ------------------------- 打接口 -------------------------
     if option=="ft:gpt-3.5-turbo-1106:personal:v2-0-1:9RL6qByn":
-        OPENAI_API_KEY="sk-proj-gLGrjCIzB8xQmdNhrooFT3BlbkFJGaoOUVFzj6OiG4i6wXOT"
+        OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
+        
         client = OpenAI(api_key=OPENAI_API_KEY)
         model_name = option
         messages = get_request_format_message_openai(prompt, response)

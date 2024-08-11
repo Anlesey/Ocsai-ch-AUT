@@ -59,10 +59,11 @@ def get_finturned_model_response_openai(client, messages, model_name, max_retrie
 
 
 def get_finturned_model_response_huggingface(API_URL, text):
-
+    HUGGFACE_AUTH_KEY=st.secrets["HUGGFACE_AUTH_KEY"]
+    
     headers = {
         "Accept" : "application/json",
-        "Authorization": "Bearer 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",
+        "Authorization": f"Bearer {HUGGFACE_AUTH_KEY}",
         "Content-Type": "application/json" 
     }
 
