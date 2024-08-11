@@ -17,7 +17,8 @@ def process_file(df):
 
     for i, row in df.iterrows():
         text = f"{row['物品']} {row['答案']}"
-        score, err = get_finturned_model_response_huggingface(text)
+        API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
+        score, err = get_finturned_model_response_huggingface(API_URL, text)
         df.at[i, 'Score'] = score
         df.at[i, 'Error'] = err
         progress_bar.progress((i + 1) / len(df))
