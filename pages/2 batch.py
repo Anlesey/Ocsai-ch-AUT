@@ -56,13 +56,7 @@ def main():
         processed_df = process_file(df)
 
         st.success("数据处理完成！")
-        # 创建下载按钮
-
-
-        # 将 DataFrame 保存为 Excel 格式
-        import pandas as pd
-        import io
-
+        
         # 将 DataFrame 保存为 Excel 格式
         output = io.BytesIO()
         writer = pd.ExcelWriter(output, engine='xlsxwriter')
