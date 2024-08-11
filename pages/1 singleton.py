@@ -53,7 +53,7 @@ if st.button("计算创造力得分"):
     elif option=="Anlesey/ernie-3.0-mini-zh-finetuned-aut":
         # https://ui.endpoints.huggingface.co/Anlesey/endpoints/ernie-3-0-mini-zh-finetuned--sxo
         API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
-        score, err = get_finturned_model_response_huggingface(text)
+        score, err = get_finturned_model_response_huggingface(API_URL, text)
 
         if err is not None:
             st.error(err)
