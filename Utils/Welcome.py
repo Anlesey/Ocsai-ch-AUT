@@ -1,6 +1,6 @@
 import streamlit as st
 
-with open('Readme.md', encoding='utf-8') as f:
+with open('README.md', encoding='utf-8') as f:
     st.markdown(f.read())
 
 

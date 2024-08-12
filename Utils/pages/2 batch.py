@@ -16,12 +16,14 @@ def validate_file(df):
         return "ID列只能包含字母、数字和下划线"
     return None
 
-def process_file(df, model_name):
+def process_file(df):
     progress_bar = st.progress(0)
+    results = []
 
     for i, row in df.iterrows():
         text = f"{row['物品']} {row['答案']}"
-        score, err = request_for_model_score(model_name, text)
+        API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
+        score, err = request_for_model_score(API_URL, text)
         df.at[i, 'Score'] = score
         df.at[i, 'Error'] = err
         progress_bar.progress((i + 1) / len(df))
@@ -58,7 +60,7 @@ def main():
             return
 
         st.info("文件格式正确，开始处理数据...")
-        processed_df = process_file(df, model_name)
+        processed_df = process_file(df)
 
         st.success("数据处理完成！")
         
