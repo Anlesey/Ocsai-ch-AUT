@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
-from io import BytesIO
-from Utils import *
+import re
+import io
+
+from Utils.Utils import request_for_model_score
+from Utils.components import get_model_options_selectbox
 
 def validate_file(df):
     required_columns = ['ID', '物品', '答案']
@@ -9,6 +12,8 @@ def validate_file(df):
         return "文件必须包含以下三列：ID, 物品, 答案"
     if df['ID'].duplicated().any():
         return "ID列不能包含重复值"
+    if not df['ID'].apply(lambda x: re.match(r'^\w+$', str(x))).all():
+        return "ID列只能包含字母、数字和下划线"
     return None
 
 def process_file(df):
@@ -18,7 +23,7 @@ def process_file(df):
     for i, row in df.iterrows():
         text = f"{row['物品']} {row['答案']}"
         API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
-        score, err = get_finturned_model_response_huggingface(API_URL, text)
+        score, err = request_for_model_score(API_URL, text)
         df.at[i, 'Score'] = score
         df.at[i, 'Error'] = err
         progress_bar.progress((i + 1) / len(df))
@@ -27,11 +32,12 @@ def process_file(df):
 
 def main():
     st.write("## 文件批处理")
+    model_name = get_model_options_selectbox(key='batch')
     st.markdown(
     '''
 
     列要求：
-    - **ID**：唯一标识符，不能重复。
+    - **ID**：唯一标识符，不能重复。必须仅由字母、数字、下划线组成。
     - **物品**：描述项目或对象。
     - **答案**：对应的答案或信息。
 
@@ -42,6 +48,7 @@ def main():
     | 2   | 报纸 | 擦拭 |
 
     ''')
+    
     uploaded_file = st.file_uploader(label="请上传包含ID, 物品, 答案三列的文件", type=["csv", "xlsx"])
 
     if uploaded_file:

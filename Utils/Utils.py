@@ -5,7 +5,7 @@ import json
 import time
 import streamlit as st
 import requests
-
+from openai import OpenAI
 
 starting_system_prompt = "请你作为心理测量专家，为创造力测评-替代用途任务中被试的作答评分。分值为1~5：1分代表该用途不具备创造力，5分代表该用途极具创造力。评分需保留一位小数，不需要额外说明。"
 
@@ -60,4 +60,18 @@ def get_finturned_model_response_huggingface(API_URL, text):
     else:
         score = result_json[0]['score']
         return score, None
-        
+
+
+def request_for_model_score(model_name, text):
+    if model_name=="ft:gpt-3.5-turbo-1106:personal:v2-0-1:9RL6qByn":
+        OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        score, err = get_finturned_model_response_openai(client, text, model_name)
+    elif model_name=="Anlesey/ernie-3.0-mini-zh-finetuned-aut":
+        # https://ui.endpoints.huggingface.co/Anlesey/endpoints/ernie-3-0-mini-zh-finetuned--sxo
+        API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
+        score, err = get_finturned_model_response_huggingface(API_URL, text)
+    else:
+        st.error('Model is not available!')
+        return None, None
+    return score, err
