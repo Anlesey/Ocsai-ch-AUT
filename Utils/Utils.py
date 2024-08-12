@@ -67,10 +67,13 @@ def request_for_model_score(model_name, text):
         OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
         client = OpenAI(api_key=OPENAI_API_KEY)
         score, err = get_finturned_model_response_openai(client, text, model_name)
-    elif model_name=="Anlesey/ernie-3.0-mini-zh-finetuned-aut":
-        # https://ui.endpoints.huggingface.co/Anlesey/endpoints/ernie-3-0-mini-zh-finetuned--sxo
-        API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
-        score, err = get_finturned_model_response_huggingface(API_URL, text)
+
+    # 为了省钱，先Pause了服务
+    # elif model_name=="Anlesey/ernie-3.0-mini-zh-finetuned-aut":
+    #     # https://ui.endpoints.huggingface.co/Anlesey/endpoints/ernie-3-0-mini-zh-finetuned--sxo
+    #     API_URL = "https://rvye4ejt0au1uole.us-east-1.aws.endpoints.huggingface.cloud"
+    #     score, err = get_finturned_model_response_huggingface(API_URL, text)
+
     else:
         st.error('Model is not available!')
         return None, None

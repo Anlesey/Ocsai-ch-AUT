@@ -29,11 +29,10 @@ def process_file(df, model_name):
     return df
 
 def main():
-    st.write("## 文件批处理")
+    st.write("### 文件批处理")
     st.markdown(
     '''
-
-    列要求：
+    数据格式要求：
     - **ID**：唯一标识符，不能重复。必须仅由字母、数字、下划线组成。
     - **物品**：描述项目或对象。
     - **答案**：对应的答案或信息。
@@ -47,7 +46,7 @@ def main():
     ''')
 
     st.divider()
-    
+
     model_name = get_model_options_selectbox(key='batch')
     
     uploaded_file = st.file_uploader(label="请上传包含ID, 物品, 答案三列的文件", type=["csv", "xlsx"])
