@@ -8,10 +8,12 @@ Ocsai-ch-AUT (Open Creativity Scoring with Artificial Intelligence for AUT task 
 
 ### Models
 ft:gpt-3.5-turbo-1106:personal:v2-0-1:9RL6qByn
+
 Anlesey/ernie-3.0-mini-zh-finetuned-aut
 
 ### Notes
 模型 ft:gpt-3.5-turbo-1106:personal:v2-0-1:9RL6qByn 用 Openai 提供的 fine-tune API 训练。
+
 模型 Anlesey/ernie-3.0-mini-zh-finetuned-aut 部署在 Huggingface 提供的 Inference Endpoints。
 
 **为了省钱，Anlesey/ernie-3.0-mini-zh-finetuned-aut 模型暂时不可用。**
