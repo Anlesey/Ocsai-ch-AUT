@@ -30,7 +30,6 @@ def process_file(df, model_name):
 
 def main():
     st.write("## 文件批处理")
-    model_name = get_model_options_selectbox(key='batch')
     st.markdown(
     '''
 
@@ -46,6 +45,10 @@ def main():
     | 2   | 报纸 | 擦拭 |
 
     ''')
+
+    st.divider()
+    
+    model_name = get_model_options_selectbox(key='batch')
     
     uploaded_file = st.file_uploader(label="请上传包含ID, 物品, 答案三列的文件", type=["csv", "xlsx"])
 
