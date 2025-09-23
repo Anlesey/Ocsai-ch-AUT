@@ -63,7 +63,7 @@ def get_finturned_model_response_huggingface(API_URL, text):
 
 
 def request_for_model_score(model_name, text):
-    if model_name=="ft:gpt-3.5-turbo-1106:personal:v2-0-1:9RL6qByn":
+    if model_name=="ft:gpt-4o-mini-2024-07-18:personal:aut-v3-1-1:A1ywguFJ":
         OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
         client = OpenAI(api_key=OPENAI_API_KEY)
         score, err = get_finturned_model_response_openai(client, text, model_name)
